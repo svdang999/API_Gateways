@@ -2061,9 +2061,7 @@ spec:
     targetPort: 8443
   selector:
     app: proxy-kong
-  # type: LoadBalancer
-  # loadBalancerIP: 172.16.65.110 #Public IP
-  type: ClusterIP
+  type: LoadBalancer
 ---
 apiVersion: v1
 kind: Service
