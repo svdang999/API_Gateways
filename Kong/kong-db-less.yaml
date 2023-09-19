@@ -2062,6 +2062,7 @@ spec:
   selector:
     app: proxy-kong
   type: LoadBalancer
+  loadBalancerIP: 172.16.65.110 #Internal IP
 ---
 apiVersion: v1
 kind: Service
