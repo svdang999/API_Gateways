@@ -33,3 +33,49 @@ deployment.apps/ingress-kong created
 deployment.apps/proxy-kong created
 ingressclass.networking.k8s.io/kong created
 ```
+
+#### Aurora
+```
+$ kubectl apply -f https://raw.githubusercontent.com/svdang999/API_Gateways/main/Kong/aurora-kong-db-less.yaml
+Warning: resource namespaces/kong is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be 
+used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+namespace/kong configured
+Warning: resource customresourcedefinitions/ingressclassparameterses.configuration.konghq.com is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+customresourcedefinition.apiextensions.k8s.io/ingressclassparameterses.configuration.konghq.com configured
+Warning: resource customresourcedefinitions/kongclusterplugins.configuration.konghq.com is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation 
+will be patched automatically.
+customresourcedefinition.apiextensions.k8s.io/kongclusterplugins.configuration.konghq.com configured
+Warning: resource customresourcedefinitions/kongconsumergroups.configuration.konghq.com is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation 
+will be patched automatically.
+customresourcedefinition.apiextensions.k8s.io/kongconsumergroups.configuration.konghq.com configured
+Warning: resource customresourcedefinitions/kongconsumers.configuration.konghq.com is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will 
+be patched automatically.
+customresourcedefinition.apiextensions.k8s.io/kongconsumers.configuration.konghq.com configured
+Warning: resource customresourcedefinitions/kongingresses.configuration.konghq.com is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will 
+be patched automatically.
+customresourcedefinition.apiextensions.k8s.io/kongingresses.configuration.konghq.com configured
+Warning: resource customresourcedefinitions/kongplugins.configuration.konghq.com is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required 
+by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+customresourcedefinition.apiextensions.k8s.io/kongplugins.configuration.konghq.com configured
+Warning: resource customresourcedefinitions/tcpingresses.configuration.konghq.com is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+customresourcedefinition.apiextensions.k8s.io/tcpingresses.configuration.konghq.com configured
+Warning: resource customresourcedefinitions/udpingresses.configuration.konghq.com is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+customresourcedefinition.apiextensions.k8s.io/udpingresses.configuration.konghq.com configured
+serviceaccount/kong-serviceaccount created
+role.rbac.authorization.k8s.io/kong-leader-election created
+clusterrole.rbac.authorization.k8s.io/kong-ingress created
+clusterrole.rbac.authorization.k8s.io/kong-ingress-crds created
+clusterrole.rbac.authorization.k8s.io/kong-ingress-gateway created
+clusterrole.rbac.authorization.k8s.io/kong-ingress-knative created
+rolebinding.rbac.authorization.k8s.io/kong-leader-election created
+clusterrolebinding.rbac.authorization.k8s.io/kong-ingress created
+clusterrolebinding.rbac.authorization.k8s.io/kong-ingress-crds created
+clusterrolebinding.rbac.authorization.k8s.io/kong-ingress-gateway created
+clusterrolebinding.rbac.authorization.k8s.io/kong-ingress-knative created
+service/kong-admin created
+service/kong-proxy created
+service/kong-validation-webhook created
+deployment.apps/ingress-kong created
+deployment.apps/proxy-kong created
+ingressclass.networking.k8s.io/kong created
+```
