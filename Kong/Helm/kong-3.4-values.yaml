@@ -278,7 +278,9 @@ proxy:
   nameOverride: ""
   # To specify annotations or labels for the proxy service, add them to the respective
   # "annotations" or "labels" dictionaries below.
-  annotations: {}
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    
   # If terminating TLS at the ELB, the following annotations can be used
   # "service.beta.kubernetes.io/aws-load-balancer-backend-protocol": "*",
   # "service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled": "true",
