@@ -2044,8 +2044,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "true" #https://stackoverflow.com/questions/66362728/kong-ingress-in-gke-with-private-ip
+  # annotations:
+  #   service.beta.kubernetes.io/azure-load-balancer-internal: "true" #https://stackoverflow.com/questions/66362728/kong-ingress-in-gke-with-private-ip
   name: kong-proxy
   namespace: kong
 spec:
@@ -2060,8 +2060,8 @@ spec:
     targetPort: 8443
   selector:
     app: proxy-kong
-  type: LoadBalancer
-  loadBalancerIP: 10.180.19.110 #Internal IP
+  type: LoadBalancer # Default as public IP 
+  # loadBalancerIP: 10.180.19.110 #Internal IP
 ---
 apiVersion: v1
 kind: Service
