@@ -79,3 +79,30 @@ deployment.apps/ingress-kong created
 deployment.apps/proxy-kong created
 ingressclass.networking.k8s.io/kong created
 ```
+
+### Delete/Uninstall Kong
+```
+PS C:\Users\son.dang> kubectl delete -f https://raw.githubusercontent.com/svdang999/API_Gateways/main/Kong/aurora-kong-db-less.yaml
+namespace "kong" deleted
+customresourcedefinition.apiextensions.k8s.io "ingressclassparameterses.configuration.konghq.com" deleted
+customresourcedefinition.apiextensions.k8s.io "kongclusterplugins.configuration.konghq.com" deleted
+customresourcedefinition.apiextensions.k8s.io "kongconsumergroups.configuration.konghq.com" deleted
+customresourcedefinition.apiextensions.k8s.io "kongconsumers.configuration.konghq.com" deleted
+customresourcedefinition.apiextensions.k8s.io "kongingresses.configuration.konghq.com" deleted
+customresourcedefinition.apiextensions.k8s.io "kongplugins.configuration.konghq.com" deleted
+customresourcedefinition.apiextensions.k8s.io "tcpingresses.configuration.konghq.com" deleted
+customresourcedefinition.apiextensions.k8s.io "udpingresses.configuration.konghq.com" deleted
+serviceaccount "kong-serviceaccount" deleted
+role.rbac.authorization.k8s.io "kong-leader-election" deleted
+clusterrole.rbac.authorization.k8s.io "kong-ingress" deleted
+clusterrole.rbac.authorization.k8s.io "kong-ingress-crds" deleted
+clusterrole.rbac.authorization.k8s.io "kong-ingress-gateway" deleted
+clusterrole.rbac.authorization.k8s.io "kong-ingress-knative" deleted
+rolebinding.rbac.authorization.k8s.io "kong-leader-election" deleted
+service "kong-admin" deleted
+service "kong-proxy" deleted
+service "kong-validation-webhook" deleted
+deployment.apps "ingress-kong" deleted
+deployment.apps "proxy-kong" deleted
+ingressclass.networking.k8s.io "kong" deleted
+```
