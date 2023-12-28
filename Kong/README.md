@@ -82,7 +82,7 @@ ingressclass.networking.k8s.io/kong created
 
 ### Delete/Uninstall Kong
 ```
-PS C:\Users\son.dang> kubectl delete -f https://raw.githubusercontent.com/svdang999/API_Gateways/main/Kong/aurora-kong-db-less.yaml
+PS C:\Users\son.dang> kubectl delete -f https://raw.githubusercontent.com/svdang999/API_Gateways/main/Kong/kong-dbless-aurora.yaml
 namespace "kong" deleted
 customresourcedefinition.apiextensions.k8s.io "ingressclassparameterses.configuration.konghq.com" deleted
 customresourcedefinition.apiextensions.k8s.io "kongclusterplugins.configuration.konghq.com" deleted
