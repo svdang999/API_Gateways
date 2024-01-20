@@ -284,12 +284,14 @@ proxy:
   # Enable creating a Kubernetes service for the proxy
   enabled: true
   type: LoadBalancer
+  loadBalancerIP: 10.80.19.110 #Internal IP
   loadBalancerClass:
   # Override proxy Service name
   nameOverride: ""
   # To specify annotations or labels for the proxy service, add them to the respective
   # "annotations" or "labels" dictionaries below.
-  annotations: {}
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true" #https://stackoverflow.com/questions/66362728/kong-ingress-in-gke-with-private-ip      
   # If terminating TLS at the ELB, the following annotations can be used
   # "service.beta.kubernetes.io/aws-load-balancer-backend-protocol": "*",
   # "service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled": "true",
