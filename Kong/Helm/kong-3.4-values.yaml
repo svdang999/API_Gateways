@@ -2,7 +2,10 @@
 # Declare variables to be passed into your templates.
 # https://github.com/Kong/charts/blob/main/charts/kong/values.yaml
 # https://github.com/Kong/charts/blob/main/charts/ingress/README.md
-# 
+
+# Default values for Kong's Helm Chart.
+# Declare variables to be passed into your templates.
+#
 # Sections:
 # - Deployment parameters
 # - Kong parameters
@@ -62,6 +65,11 @@ deployment:
   # Use a DaemonSet controller instead of a Deployment controller
   daemonset: false
   hostNetwork: false
+  # Set the Deployment's spec.template.hostname field.
+  # This propagates to Kong API endpoints that report
+  # the hostname, such as the admin API root and hybrid mode
+  # /clustering/data-planes endpoint
+  hostname: ""
   # kong_prefix empty dir size
   prefixDir:
     sizeLimit: 256Mi
@@ -117,16 +125,20 @@ env:
 #         name: api_key
 #   client_name: testClient
 
+# Load all ConfigMap or Secret keys as environment variables:
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
+envFrom: []
+
 # This section can be used to configure some extra labels that will be added to each Kubernetes object generated.
 extraLabels: {}
 
 # Specify Kong's Docker image and repository details here
 image:
   repository: kong
-  tag: "3.4"
+  tag: "3.5"
   # Kong Enterprise
   # repository: kong/kong-gateway
-  # tag: "3.4"
+  # tag: "3.5"
 
   # Specify a semver version if your image tag is not one (e.g. "nightly")
   effectiveSemver:
@@ -272,15 +284,12 @@ proxy:
   # Enable creating a Kubernetes service for the proxy
   enabled: true
   type: LoadBalancer
-  loadBalancerIP: 10.180.19.110 #Internal IP
   loadBalancerClass:
   # Override proxy Service name
   nameOverride: ""
   # To specify annotations or labels for the proxy service, add them to the respective
   # "annotations" or "labels" dictionaries below.
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-    
+  annotations: {}
   # If terminating TLS at the ELB, the following annotations can be used
   # "service.beta.kubernetes.io/aws-load-balancer-backend-protocol": "*",
   # "service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled": "true",
@@ -515,13 +524,13 @@ dblessConfig:
 # -----------------------------------------------------------------------------
 
 # Kong Ingress Controller's primary purpose is to satisfy Ingress resources
-# created in k8s.  It uses CRDs for more fine grained control over routing and
+# created in k8s. It uses CRDs for more fine grained control over routing and
 # for Kong specific configuration.
 ingressController:
   enabled: true
   image:
     repository: kong/kubernetes-ingress-controller
-    tag: "2.12"
+    tag: "3.0"
     # Optionally set a semantic version for version-gated features. This can normally
     # be left unset. You only need to set this if your tag is not a semver string,
     # such as when you are using a "next" tag. Set this to the effective semantic
@@ -564,6 +573,10 @@ ingressController:
   # Example as below, uncomment if required and add additional attributes as required.
   # customEnv:
   #   TZ: "Europe/Berlin"
+
+  # Load all ConfigMap or Secret keys as environment variables:
+  # https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
+  envFrom: []
 
   admissionWebhook:
     enabled: true
@@ -893,9 +906,9 @@ deploymentAnnotations: {}
 # When configuring an HPA, you must set resource requests on all containers via
 # "resources" and, if using the controller, "ingressController.resources" in values.yaml
 autoscaling:
-  enabled: true
+  enabled: false
   minReplicas: 2
-  maxReplicas: 3
+  maxReplicas: 5
   behavior: {}
   ## targetCPUUtilizationPercentage only used if the cluster doesn't support autoscaling/v2 or autoscaling/v2beta
   targetCPUUtilizationPercentage:
@@ -981,7 +994,7 @@ serviceMonitor:
   # If you wish to gather metrics from a Kong instance with the proxy disabled (such as a hybrid control plane), see:
   # https://github.com/Kong/charts/blob/main/charts/kong/README.md#prometheus-operator-integration
   enabled: false
-  # interval: 10s
+  # interval: 30s
   # Specifies namespace, where ServiceMonitor should be installed
   # namespace: monitoring
   # labels:
