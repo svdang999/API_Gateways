@@ -498,6 +498,7 @@ migrations:
 # Kong's configuration for DB-less mode
 # Note: Use this section only if you are deploying Kong in DB-less mode
 # and not as an Ingress Controller.
+# Ref: https://github.com/Kong/kong-operator/blob/main/helm-charts/kong/values.yaml 
 dblessConfig:
   # Either Kong's configuration is managed from an existing ConfigMap (with Key: kong.yml)
   configMap: ""
