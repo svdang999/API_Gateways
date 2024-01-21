@@ -7,3 +7,7 @@ metadata:
 data:
   KONG_NGINX_HTTP_CLIENT_BODY_BUFFER_SIZE: 10m
   KONG_NGINX_HTTP_CLIENT_MAX_BODY_SIZE: 10m #https://github.com/Kong/kong/blob/master/kong.conf.default
+  
+  #https://github.com/Kong/kong/issues/5828
+  KONG_CLIENT_MAX_BODY_SIZE: 10m
+  KONG_CLIENT_BODY_BUFFER_SIZE: 10m
