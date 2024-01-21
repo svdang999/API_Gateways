@@ -1,0 +1,9 @@
+## kubectl.exe apply -f kong-infra-dev-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-infra-dev-configmap
+  namespace: kong-infra-dev
+data:
+  SPECIAL_LEVEL: very
+  SPECIAL_TYPE: charm
