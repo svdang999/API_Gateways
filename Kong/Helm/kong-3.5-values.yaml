@@ -128,6 +128,10 @@ env:
 # Load all ConfigMap or Secret keys as environment variables:
 # https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
 envFrom: []
+# - configMapRef:
+#   name: kubernetes-app-configmap
+# - secretRef:
+#   name: kubernetes-app-secret
 
 # This section can be used to configure some extra labels that will be added to each Kubernetes object generated.
 extraLabels: {}
