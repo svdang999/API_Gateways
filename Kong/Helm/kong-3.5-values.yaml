@@ -129,7 +129,7 @@ env:
 # https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
 envFrom: # []
 - configMapRef:
-  name: kong-infra-dev-configmap
+    name: kong-infra-dev-configmap
 # - secretRef:
 #   name: kubernetes-app-secret
 
