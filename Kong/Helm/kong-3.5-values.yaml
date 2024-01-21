@@ -583,7 +583,9 @@ ingressController:
 
   # Load all ConfigMap or Secret keys as environment variables:
   # https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
-  envFrom: []
+  envFrom: # []
+  - configMapRef:
+      name: kong-infra-dev-configmap
 
   admissionWebhook:
     enabled: true
