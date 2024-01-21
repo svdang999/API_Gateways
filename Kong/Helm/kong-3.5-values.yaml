@@ -127,9 +127,9 @@ env:
 
 # Load all ConfigMap or Secret keys as environment variables:
 # https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
-envFrom: []
-# - configMapRef:
-#   name: kubernetes-app-configmap
+envFrom: # []
+- configMapRef:
+  name: kong-infra-dev-configmap.yaml
 # - secretRef:
 #   name: kubernetes-app-secret
 
