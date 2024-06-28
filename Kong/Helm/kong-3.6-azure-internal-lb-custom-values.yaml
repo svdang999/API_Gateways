@@ -279,7 +279,7 @@ proxy:
   # Enable creating a Kubernetes service for the proxy
   enabled: true
   type: LoadBalancer
-  loadBalancerIP: 10.3.1.100 #dr subnet
+  loadBalancerIP: 10.3.2.105 #dr subnet
   loadBalancerClass:
   # Override proxy Service name
   nameOverride: ""
@@ -557,7 +557,7 @@ ingressController:
   # namespaced-scoped Roles for each of them. The controller will still use a
   # ClusterRole for cluster-scoped resources.
   # Requires controller 2.0.0 or newer.
-  watchNamespaces: []
+  watchNamespaces: [kong]
 
   # Specify Kong Ingress Controller configuration via environment variables
   env:
