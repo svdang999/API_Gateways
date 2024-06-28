@@ -1,11 +1,6 @@
 # Default values for Kong's Helm Chart.
 # Declare variables to be passed into your templates.
 # https://github.com/Kong/charts/blob/main/charts/kong/values.yaml
-# https://github.com/Kong/charts/blob/main/charts/ingress/README.md
-
-# Default values for Kong's Helm Chart.
-# Declare variables to be passed into your templates.
-#
 # Sections:
 # - Deployment parameters
 # - Kong parameters
@@ -127,11 +122,7 @@ env:
 
 # Load all ConfigMap or Secret keys as environment variables:
 # https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
-envFrom: # []
-- configMapRef:
-    name: kong-infra-dev-configmap
-# - secretRef:
-#   name: kubernetes-app-secret
+envFrom: []
 
 # This section can be used to configure some extra labels that will be added to each Kubernetes object generated.
 extraLabels: {}
@@ -139,7 +130,7 @@ extraLabels: {}
 # Specify Kong's Docker image and repository details here
 image:
   repository: kong
-  tag: "3.5"
+  tag: "3.6"
   # Kong Enterprise
   # repository: kong/kong-gateway
   # tag: "3.5"
@@ -288,16 +279,15 @@ proxy:
   # Enable creating a Kubernetes service for the proxy
   enabled: true
   type: LoadBalancer
-  loadBalancerIP: 10.224.25.0 #Internal IP
   loadBalancerClass:
   # Override proxy Service name
   nameOverride: ""
   # To specify annotations or labels for the proxy service, add them to the respective
   # "annotations" or "labels" dictionaries below.
   annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "true" #https://stackoverflow.com/questions/66362728/kong-ingress-in-gke-with-private-ip      
   # If terminating TLS at the ELB, the following annotations can be used
-  # "service.beta.kubernetes.io/aws-load-balancer-backend-protocol": "*",
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true" #https://stackoverflow.com/questions/66362728/kong-ingress-in-gke-with-private-ip
+    
   # "service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled": "true",
   # "service.beta.kubernetes.io/aws-load-balancer-ssl-cert": "arn:aws:acm:REGION:ACCOUNT:certificate/XXXXXX-XXXXXXX-XXXXXXX-XXXXXXXX",
   # "service.beta.kubernetes.io/aws-load-balancer-ssl-ports": "kong-proxy-tls",
@@ -308,6 +298,9 @@ proxy:
   http:
     # Enable plaintext HTTP listen for the proxy
     enabled: true
+    # Set the servicePort: 0 to skip exposing in the service but still
+    # let the port open in container to allow https to http mapping for
+    # tls terminated at LB.
     servicePort: 80
     containerPort: 8000
     # Set a nodePort which is available if service type is NodePort
@@ -327,6 +320,10 @@ proxy:
     # Additional listen parameters, e.g. "reuseport", "backlog=16384"
     parameters:
     - http2
+
+    # Specify the Service's TLS port's appProtocol. This can be useful when integrating with
+    # external load balancers that require the `appProtocol` field to be set (e.g. GCP).
+    appProtocol: ""
 
   # Define stream (TCP) listen
   # To enable, remove "[]", uncomment the section below, and select your desired
@@ -502,7 +499,6 @@ migrations:
 # Kong's configuration for DB-less mode
 # Note: Use this section only if you are deploying Kong in DB-less mode
 # and not as an Ingress Controller.
-# Ref: https://github.com/Kong/kong-operator/blob/main/helm-charts/kong/values.yaml 
 dblessConfig:
   # Either Kong's configuration is managed from an existing ConfigMap (with Key: kong.yml)
   configMap: ""
@@ -537,7 +533,7 @@ ingressController:
   enabled: true
   image:
     repository: kong/kubernetes-ingress-controller
-    tag: "3.0"
+    tag: "3.2"
     # Optionally set a semantic version for version-gated features. This can normally
     # be left unset. You only need to set this if your tag is not a semver string,
     # such as when you are using a "next" tag. Set this to the effective semantic
@@ -583,12 +579,11 @@ ingressController:
 
   # Load all ConfigMap or Secret keys as environment variables:
   # https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
-  envFrom: # []
-  - configMapRef:
-      name: kong-infra-dev-configmap
+  envFrom: []
 
   admissionWebhook:
     enabled: true
+    filterSecrets: false
     failurePolicy: Ignore
     port: 8080
     certificate:
@@ -1013,6 +1008,7 @@ serviceMonitor:
 
   # honorLabels: false
   # metricRelabelings: []
+  # relabelings: []
 
 # -----------------------------------------------------------------------------
 # Kong Enterprise parameters
@@ -1038,7 +1034,9 @@ enterprise:
     # If RBAC is enabled, this Secret must contain an admin_gui_session_conf key
     # The key value must be a secret configuration, following the example at
     # https://docs.konghq.com/enterprise/latest/kong-manager/authentication/sessions
-    session_conf_secret: kong-session-config
+    # If using 3.6+ and OIDC, session configuration is instead handled in the auth configuration,
+    # and this field can be left empty.
+    session_conf_secret: "kong-session-config"  # CHANGEME
     # If admin_gui_auth is not set to basic-auth, provide a secret name which
     # has an admin_gui_auth_conf key containing the plugin config JSON
     admin_gui_auth_conf_secret: CHANGEME-admin-gui-auth-conf-secret
