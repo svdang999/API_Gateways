@@ -279,6 +279,7 @@ proxy:
   # Enable creating a Kubernetes service for the proxy
   enabled: true
   type: LoadBalancer
+  loadBalancerIP: 10.3.1.100 #dr subnet
   loadBalancerClass:
   # Override proxy Service name
   nameOverride: ""
