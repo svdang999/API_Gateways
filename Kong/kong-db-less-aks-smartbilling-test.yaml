@@ -1,4 +1,5 @@
 # From https://raw.githubusercontent.com/Kong/kubernetes-ingress-controller/master/deploy/single/all-in-one-dbless.yaml
+# https://raw.githubusercontent.com/Kong/kubernetes-ingress-controller/v2.12.0/deploy/single/all-in-one-dbless.yaml
 # Kong db less version 3.4 YAML file
 # Kong-proxy service expose as internal IP
 
